@@ -6,6 +6,8 @@ All game code is written in C#.
 
 **▶ Play it in your browser:** https://code-abbey.github.io/coin-rush/ (desktop Chrome, Edge, Firefox or Safari; keyboard or gamepad. The first load downloads about 25 MB.)
 
+The browser version uses lighter graphics than the editor (no anti-aliasing or ambient occlusion, shorter shadows) and lowers its 3D resolution automatically if your browser can't keep up. Add `?fps` to the address to show the frame rate, or `?quality=high` for the full desktop graphics: https://code-abbey.github.io/coin-rush/?quality=high&fps
+
 ---
 
 ## Contents
