@@ -6,7 +6,7 @@ All game code is written in C#.
 
 **▶ Play it in your browser:** https://code-abbey.github.io/coin-rush/ (desktop Chrome, Edge, Firefox or Safari; keyboard or gamepad. The first load downloads about 25 MB.)
 
-The browser version uses lighter graphics than the editor (no anti-aliasing or ambient occlusion, shorter shadows) and lowers its 3D resolution automatically if your browser can't keep up. Add `?fps` to the address to show the frame rate, or `?quality=high` for the full desktop graphics: https://code-abbey.github.io/coin-rush/?quality=high&fps
+The browser version uses lighter graphics than the editor (no anti-aliasing or ambient occlusion, shorter shadows) and a capped resolution on high-DPI (Retina) screens. If the browser ever resets the game's graphics, a message offers to reload the page. Add `?fps` to the address to show the frame rate, or `?quality=high` for the full desktop graphics: https://code-abbey.github.io/coin-rush/?quality=high&fps
 
 ---
 
@@ -136,6 +136,7 @@ In the browser version, progress is saved in the browser's own storage for that 
 | **Export Config to JSON** | Writes the settings file from the current default values |
 | **Render Fractal Tree Previews** | Saves pictures of the generated trees to `Docs/Design/images` |
 | **Build Web Version** | Builds the browser (WebGL) version into `Builds/WebGL`. Needs the Web module for Unity 6000.3.6f1 (Unity Hub → Installs → Add modules). |
+| **Build Web Version (Debug)** | A development build of the browser version with full error messages and the F1–F3 testing shortcuts, written to `Builds/WebGL-Debug`. Use it to track down browser-only problems. |
 | **Apply Recommended Project Settings** | Linear colour space, new Input System only, VS Code as the script editor |
 
 ### Testing shortcuts (only in the editor and development builds)
