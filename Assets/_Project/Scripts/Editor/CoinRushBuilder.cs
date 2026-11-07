@@ -246,6 +246,21 @@ namespace CoinRush.EditorTools
                 minimapTexture = new RenderTexture(512, 512, 16) { name = "RT_Minimap" };
                 AssetDatabase.CreateAsset(minimapTexture, rtPath);
             }
+            UsePortableFormat(minimapTexture);
+        }
+
+        /// <summary>
+        /// RGBA8 (sRGB) works on every platform, including browsers. The default format on a Mac is BGRA,
+        /// which WebGL cannot render into.
+        /// </summary>
+        private static void UsePortableFormat(RenderTexture rt)
+        {
+            const UnityEngine.Experimental.Rendering.GraphicsFormat portable =
+                UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_SRGB;
+            if (rt == null || rt.graphicsFormat == portable) return;
+            rt.Release();
+            rt.graphicsFormat = portable;
+            EditorUtility.SetDirty(rt);
         }
 
         /// <summary>Adds URP's Screen Space Ambient Occlusion renderer feature (soft contact shadows) once.</summary>

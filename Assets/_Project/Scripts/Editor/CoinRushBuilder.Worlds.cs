@@ -819,6 +819,7 @@ namespace CoinRush.EditorTools
                 heroRt = new RenderTexture(900, 1100, 24) { name = "RT_HeroPreview", antiAliasing = 4 };
                 AssetDatabase.CreateAsset(heroRt, heroRtPath);
             }
+            UsePortableFormat(heroRt);
             GameObject heroCamGo = Empty("HeroCamera", stage, new Vector3(0f, 1.25f, -5.6f));
             heroCamGo.transform.LookAt(stage.position + Vector3.up * 0.82f);
             Camera heroCam = heroCamGo.AddComponent<Camera>();
