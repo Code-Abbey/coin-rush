@@ -1,0 +1,22 @@
+# Unity-generated folders (recreated when the project is opened)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+
+# Build output (the web version is published separately on GitHub Pages)
+/[Bb]uild/
+/[Bb]uilds/
+
+# IDE-generated project files
+*.csproj
+*.sln
+*.slnx
+*.pidb
+*.userprefs
+
+# OS files
+.DS_Store
+Thumbs.db

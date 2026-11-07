@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49c9e253b9c14077b6d6c029681a04a, type: 3}
+  m_Name: Hero_Zara
+  m_EditorClassIdentifier: Assembly-CSharp::CoinRush.Data.CharacterDefinition
+  displayName: Zara
+  role: Acrobat
+  description: Walls? What walls? Her huge jumps reach coins nobody else can.
+  accentColor: {r: 0.75, g: 0.5, b: 1, a: 1}
+  portrait: {fileID: 21300000, guid: c519e824180784ccdb33f198bb034a8c, type: 3}
+  model: {fileID: 919132149155446097, guid: da3290d862baf4b61b35f3dd51094cf7, type: 3}
+  yawOffset: 0
+  speed: 3
+  jump: 5
+  stamina: 2

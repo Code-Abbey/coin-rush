@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49c9e253b9c14077b6d6c029681a04a, type: 3}
+  m_Name: Hero_AgentGrey
+  m_EditorClassIdentifier: Assembly-CSharp::CoinRush.Data.CharacterDefinition
+  displayName: Agent Grey
+  role: Spy
+  description: Quick, springy and always cool. Perfect for daring shortcuts.
+  accentColor: {r: 0.7, g: 0.78, b: 0.9, a: 1}
+  portrait: {fileID: 21300000, guid: 12a8ffa7ccb4e401ba030c1291a54b22, type: 3}
+  model: {fileID: 919132149155446097, guid: e49c9b9d465c44f3596e6eb69ec49215, type: 3}
+  yawOffset: 0
+  speed: 4
+  jump: 4
+  stamina: 2

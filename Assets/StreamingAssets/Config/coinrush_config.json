@@ -1,0 +1,99 @@
+{
+    "version": 1,
+    "rules": {
+        "comboWindow": 2.2,
+        "pickupsPerMultiplierStep": 5,
+        "maxMultiplier": 4,
+        "timeBonusPerSecond": 0.5,
+        "countdownSeconds": 3
+    },
+    "player": {
+        "walkSpeed": 6.0,
+        "sprintMultiplier": 1.6,
+        "jumpHeight": 1.4,
+        "gravity": -25.0,
+        "dashSpeed": 22.0,
+        "dashCooldown": 1.6,
+        "maxStamina": 100.0,
+        "maxHealth": 100.0
+    },
+    "worlds": [
+        {
+            "sceneName": "World1_Meadow",
+            "worldName": "Sunny Meadow",
+            "coinQuota": 30,
+            "timeLimit": 150.0,
+            "maxActiveCoins": 26,
+            "gemChance": 0.12,
+            "startingEnemies": 3,
+            "maxEnemies": 7,
+            "powerUpSpawnInterval": 9.0,
+            "maxPowerUpsOnField": 3
+        },
+        {
+            "sceneName": "World2_Desert",
+            "worldName": "Desert Ruins",
+            "coinQuota": 45,
+            "timeLimit": 170.0,
+            "maxActiveCoins": 28,
+            "gemChance": 0.16,
+            "startingEnemies": 4,
+            "maxEnemies": 9,
+            "powerUpSpawnInterval": 9.0,
+            "maxPowerUpsOnField": 3
+        },
+        {
+            "sceneName": "World3_Frozen",
+            "worldName": "Frozen Night",
+            "coinQuota": 60,
+            "timeLimit": 185.0,
+            "maxActiveCoins": 30,
+            "gemChance": 0.2,
+            "startingEnemies": 5,
+            "maxEnemies": 11,
+            "powerUpSpawnInterval": 8.0,
+            "maxPowerUpsOnField": 4
+        }
+    ],
+    "forests": [
+        {
+            "sceneName": "World1_Meadow",
+            "treeCount": 8,
+            "seed": 11,
+            "iterations": 4,
+            "branchAngle": 28.0,
+            "trunkLength": 1.6,
+            "trunkRadius": 0.28,
+            "lengthScale": 0.78,
+            "leafSize": 0.95,
+            "barkColor": "#6B4A2F",
+            "leafColor": "#4FB45A"
+        },
+        {
+            "sceneName": "World2_Desert",
+            "treeCount": 6,
+            "seed": 22,
+            "iterations": 3,
+            "branchAngle": 42.0,
+            "trunkLength": 1.5,
+            "trunkRadius": 0.24,
+            "lengthScale": 0.86,
+            "leafSize": 1.15,
+            "barkColor": "#8A5A3C",
+            "leafColor": "#A5B84A"
+        },
+        {
+            "sceneName": "World3_Frozen",
+            "treeCount": 7,
+            "seed": 33,
+            "iterations": 4,
+            "branchAngle": 24.0,
+            "trunkLength": 1.5,
+            "trunkRadius": 0.22,
+            "lengthScale": 0.76,
+            "leafSize": 0.8,
+            "barkColor": "#4A5568",
+            "leafColor": "#DDEFFF"
+        }
+    ]
+}

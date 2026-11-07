@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272160d1c293744d2945c1733fbf0d70, type: 3}
+  m_Name: CharacterDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::CoinRush.Data.CharacterDatabase
+  characters:
+  - {fileID: 11400000, guid: e01b3b550ac4242a7b4a6df2cba08588, type: 2}
+  - {fileID: 11400000, guid: 1b06b0ffd5e454ecd8b6e4a1ae03de28, type: 2}
+  - {fileID: 11400000, guid: 99c021fdc353f44f39bbbc2f9d5dcba7, type: 2}
+  - {fileID: 11400000, guid: c83f0cc689ec4460db69a064bbcf3b3e, type: 2}
+  - {fileID: 11400000, guid: fa13217acbd0f488dac67653b5171e8e, type: 2}
+  heroController: {fileID: 9100000, guid: 554f93bbbc71c40839ec630560e7b747, type: 2}
+  heroHeight: 1.55
