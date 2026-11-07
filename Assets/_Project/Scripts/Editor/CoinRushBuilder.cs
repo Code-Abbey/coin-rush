@@ -206,11 +206,16 @@ namespace CoinRush.EditorTools
         private static void SetupRendering()
         {
             // Prefer the URP asset created by hand in Settings/Rendering; otherwise create one.
-            urpAsset = null;
-            foreach (string guid in AssetDatabase.FindAssets("t:UniversalRenderPipelineAsset", new[] { RenderingDir }))
+            urpAsset = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(RenderingDir + "/CoinRush_URP.asset");
+            if (urpAsset == null)
             {
-                urpAsset = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(AssetDatabase.GUIDToAssetPath(guid));
-                if (urpAsset != null) break;
+                foreach (string guid in AssetDatabase.FindAssets("t:UniversalRenderPipelineAsset", new[] { RenderingDir }))
+                {
+                    string path = AssetDatabase.GUIDToAssetPath(guid);
+                    if (path == WebUrpPath) continue;
+                    urpAsset = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(path);
+                    if (urpAsset != null) break;
+                }
             }
 
             if (urpAsset == null)
@@ -230,11 +235,14 @@ namespace CoinRush.EditorTools
             AddAmbientOcclusion();
 
             GraphicsSettings.defaultRenderPipeline = urpAsset;
+            UniversalRenderPipelineAsset webAsset = SetupWebRendering();
+
+            // Very Low / Low / Medium use the lighter browser profile; High and above use the full one.
             int current = QualitySettings.GetQualityLevel();
             for (int i = 0; i < QualitySettings.names.Length; i++)
             {
                 QualitySettings.SetQualityLevel(i, false);
-                QualitySettings.renderPipeline = urpAsset;
+                QualitySettings.renderPipeline = i <= WebQualityLevel ? webAsset : urpAsset;
             }
             QualitySettings.SetQualityLevel(current, false);
 
@@ -261,6 +269,49 @@ namespace CoinRush.EditorTools
             rt.Release();
             rt.graphicsFormat = portable;
             EditorUtility.SetDirty(rt);
+        }
+
+        private const string WebUrpPath = RenderingDir + "/CoinRush_URP_Web.asset";
+        private const string WebRendererPath = RenderingDir + "/CoinRush_URP_Web_Renderer.asset";
+
+        /// <summary>Quality level the browser version uses (see CoinRush.Core.WebPerformance).</summary>
+        private const int WebQualityLevel = 2;
+
+        /// <summary>
+        /// A lighter copy of the URP asset for the browser version: no MSAA, no ambient occlusion and
+        /// smaller, shorter-range shadows. Browsers (Safari especially) are much slower than the editor.
+        /// </summary>
+        private static UniversalRenderPipelineAsset SetupWebRendering()
+        {
+            var mainRenderer = urpAsset.rendererDataList.Length > 0 ? urpAsset.rendererDataList[0] : null;
+            if (AssetDatabase.LoadAssetAtPath<UniversalRendererData>(WebRendererPath) == null && mainRenderer != null)
+                AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(mainRenderer), WebRendererPath);
+            if (AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(WebUrpPath) == null)
+                AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(urpAsset), WebUrpPath);
+
+            var webRenderer = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(WebRendererPath);
+            var web = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(WebUrpPath);
+            if (webRenderer != null)
+            {
+                foreach (ScriptableRendererFeature feature in webRenderer.rendererFeatures)
+                    if (feature is ScreenSpaceAmbientOcclusion) feature.SetActive(false);
+                EditorUtility.SetDirty(webRenderer);
+
+                var so = new SerializedObject(web);
+                SerializedProperty list = so.FindProperty("m_RendererDataList");
+                list.arraySize = 1;
+                list.GetArrayElementAtIndex(0).objectReferenceValue = webRenderer;
+                so.ApplyModifiedPropertiesWithoutUndo();
+            }
+
+            web.supportsHDR = true;            // keeps the bloom glow
+            web.msaaSampleCount = 1;
+            web.renderScale = 1f;              // lowered automatically at runtime if the browser struggles
+            web.shadowDistance = 50f;
+            web.shadowCascadeCount = 2;
+            web.mainLightShadowmapResolution = 2048;
+            EditorUtility.SetDirty(web);
+            return web;
         }
 
         /// <summary>Adds URP's Screen Space Ambient Occlusion renderer feature (soft contact shadows) once.</summary>
