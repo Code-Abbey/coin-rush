@@ -4,6 +4,8 @@
 
 All game code is written in C#.
 
+**▶ Play it in your browser:** https://code-abbey.github.io/coin-rush/ (desktop Chrome, Edge, Firefox or Safari; keyboard or gamepad. The first load downloads about 25 MB.)
+
 ---
 
 ## Contents
@@ -122,6 +124,8 @@ Your best score, fastest win and a history of your runs (hero, score, coins, bes
 
 Delete that file to reset your records.
 
+In the browser version, progress is saved in the browser's own storage for that site instead.
+
 ## For developers
 ### Menu tools (the **Coin Rush** menu at the top of the Unity editor)
 | Menu item | What it does |
@@ -129,6 +133,7 @@ Delete that file to reset your records.
 | **Build Everything** | Regenerates all scenes, prefabs, materials and UI from code. ⚠️ Any manual changes to the scenes are replaced. Your JSON settings file is kept. |
 | **Export Config to JSON** | Writes the settings file from the current default values |
 | **Render Fractal Tree Previews** | Saves pictures of the generated trees to `Docs/Design/images` |
+| **Build Web Version** | Builds the browser (WebGL) version into `Builds/WebGL`. Needs the Web module for Unity 6000.3.6f1 (Unity Hub → Installs → Add modules). |
 | **Apply Recommended Project Settings** | Linear colour space, new Input System only, VS Code as the script editor |
 
 ### Testing shortcuts (only in the editor and development builds)
