@@ -17,7 +17,16 @@ namespace CoinRush.EditorTools
         public const string OutputFolder = "Builds/WebGL";
 
         [MenuItem("Coin Rush/Build Web Version", priority = 30)]
-        public static void Build()
+        public static void Build() => Build(debug: false);
+
+        /// <summary>
+        /// Development build with full error messages (C# exceptions with stack traces) and the testing
+        /// shortcuts (F1-F3), written to Builds/WebGL-Debug. Slower; use it to track down browser-only problems.
+        /// </summary>
+        [MenuItem("Coin Rush/Build Web Version (Debug)", priority = 31)]
+        public static void BuildDebug() => Build(debug: true);
+
+        private static void Build(bool debug)
         {
             if (EditorApplication.isPlaying) { Debug.LogWarning("[Coin Rush] Exit Play mode first."); return; }
             if (!BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.WebGL, BuildTarget.WebGL))
@@ -42,7 +51,9 @@ namespace CoinRush.EditorTools
             PlayerSettings.SetIl2CppCompilerConfiguration(NamedBuildTarget.WebGL, Il2CppCompilerConfiguration.Master);
 
             string[] scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
-            string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", OutputFolder));
+            WebGLExceptionSupport releaseExceptions = PlayerSettings.WebGL.exceptionSupport;
+            if (debug) PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.FullWithStacktrace;
+            string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", debug ? OutputFolder + "-Debug" : OutputFolder));
             if (Directory.Exists(output)) Directory.Delete(output, true);
 
             BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
@@ -51,8 +62,9 @@ namespace CoinRush.EditorTools
                 locationPathName = output,
                 target = BuildTarget.WebGL,
                 targetGroup = BuildTargetGroup.WebGL,
-                options = BuildOptions.None,
+                options = debug ? BuildOptions.Development : BuildOptions.None,
             });
+            PlayerSettings.WebGL.exceptionSupport = releaseExceptions;
 
             BuildSummary s = report.summary;
             if (s.result == BuildResult.Succeeded) PatchIndexHtml(Path.Combine(output, "index.html"));
@@ -61,8 +73,9 @@ namespace CoinRush.EditorTools
         }
 
         /// <summary>
-        /// Caps the canvas resolution on Retina screens (a 2x screen otherwise draws 4x the pixels) and adds
-        /// an optional frame-rate readout. Page address options: ?quality=high (full resolution and
+        /// Caps the canvas resolution on Retina screens (a 2x screen otherwise draws 4x the pixels), shows a
+        /// friendly reload message if the browser ever drops the game's graphics, and adds an optional
+        /// frame-rate readout. Page address options: ?quality=high (full resolution and
         /// desktop graphics), ?fps (show frames per second).
         /// </summary>
         private static void PatchIndexHtml(string path)
@@ -75,6 +88,17 @@ namespace CoinRush.EditorTools
       // Add ?quality=high to the address for full desktop graphics, or ?fps to show the frame rate.
       if (!/[?&]quality=high/.test(location.search))
         config.devicePixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      // If the browser resets the graphics (for example when the GPU runs out of memory) the canvas goes
+      // blank while the music keeps playing. Explain what happened instead of leaving a blank screen.
+      canvas.addEventListener('webglcontextlost', function () {
+        var lost = document.createElement('div');
+        lost.style.cssText = 'position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;' +
+          'flex-direction:column;gap:12px;background:rgba(10,12,24,.92);color:#fff;font:600 18px sans-serif;cursor:pointer';
+        lost.innerHTML = '<div>The browser reset the game\'s graphics.</div>' +
+          '<div style=""color:#FFC94D"">Click to reload Coin Rush</div>';
+        lost.onclick = function () { location.reload(); };
+        document.body.appendChild(lost);
+      });
       if (/[?&]fps/.test(location.search)) {
         var fpsBox = document.createElement('div');
         fpsBox.style.cssText = 'position:fixed;top:8px;left:8px;z-index:9;padding:4px 8px;border-radius:6px;' +

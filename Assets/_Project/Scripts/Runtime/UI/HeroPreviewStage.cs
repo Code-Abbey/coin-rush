@@ -19,6 +19,24 @@ namespace CoinRush.UI
 
         private GameObject current;
         private CharacterDefinition shown;
+        private Camera previewCamera;
+
+        private void Awake()
+        {
+            previewCamera = GetComponentInChildren<Camera>(true);
+            SetRendering(false);
+        }
+
+        /// <summary>
+        /// Renders the preview only while the Characters screen is open, and frees the render texture's
+        /// memory when it closes (it is recreated automatically the next time it's needed).
+        /// </summary>
+        public void SetRendering(bool on)
+        {
+            if (previewCamera == null) return;
+            previewCamera.enabled = on;
+            if (!on && previewCamera.targetTexture != null) previewCamera.targetTexture.Release();
+        }
 
         private void Update()
         {

@@ -816,10 +816,11 @@ namespace CoinRush.EditorTools
             RenderTexture heroRt = AssetDatabase.LoadAssetAtPath<RenderTexture>(heroRtPath);
             if (heroRt == null)
             {
-                heroRt = new RenderTexture(900, 1100, 24) { name = "RT_HeroPreview", antiAliasing = 4 };
+                heroRt = new RenderTexture(900, 1100, 24) { name = "RT_HeroPreview", antiAliasing = 2 };
                 AssetDatabase.CreateAsset(heroRt, heroRtPath);
             }
             UsePortableFormat(heroRt);
+            if (heroRt.antiAliasing != 2) { heroRt.Release(); heroRt.antiAliasing = 2; EditorUtility.SetDirty(heroRt); }
             GameObject heroCamGo = Empty("HeroCamera", stage, new Vector3(0f, 1.25f, -5.6f));
             heroCamGo.transform.LookAt(stage.position + Vector3.up * 0.82f);
             Camera heroCam = heroCamGo.AddComponent<Camera>();

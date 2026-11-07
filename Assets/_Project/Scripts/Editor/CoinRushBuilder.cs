@@ -306,7 +306,7 @@ namespace CoinRush.EditorTools
 
             web.supportsHDR = true;            // keeps the bloom glow
             web.msaaSampleCount = 1;
-            web.renderScale = 1f;              // lowered automatically at runtime if the browser struggles
+            web.renderScale = 1f;              // fixed on purpose (see WebPerformance)
             web.shadowDistance = 50f;
             web.shadowCascadeCount = 2;
             web.mainLightShadowmapResolution = 2048;

@@ -49,6 +49,7 @@ namespace CoinRush.UI
         public void Open()
         {
             homePanel.SetActive(false);
+            stage.SetRendering(true);
             MonoBehaviourRunner.Run(UITween.ShowPanel(gameObject));
             Preview(SelectedCharacter.Index, cheer: false);
         }
@@ -102,6 +103,7 @@ namespace CoinRush.UI
         private void Close()
         {
             gameObject.SetActive(false);
+            stage.SetRendering(false);
             MonoBehaviourRunner.Run(UITween.ShowPanel(homePanel));
         }
     }
