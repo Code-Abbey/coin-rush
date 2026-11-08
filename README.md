@@ -1,6 +1,6 @@
 # Coin Rush
 
-**Coin Rush** is a colourful 3D collect-a-thon made with **Unity 6**. Pick a hero, race against the clock to collect enough coins to open each world's portal, avoid the guards and hazards, and escape through all three worlds: **Sunny Meadow → Desert Ruins → Frozen Night**.
+**Coin Rush** is a 3D collect-a-thon made with **Unity 6**. Pick a hero, race against the clock to collect enough coins to open each world's portal, avoid the guards and hazards, and escape through all three worlds: **Sunny Meadow → Desert Ruins → Frozen Night**.
 
 All game code is written in C#.
 
