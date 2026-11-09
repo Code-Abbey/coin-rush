@@ -16,6 +16,16 @@
 *.slnx
 *.pidb
 *.userprefs
+.vs/
+.idea/
+.consulo/
+*.suo
+*.user
+
+# Unity crash and export files
+sysinfo.txt
+*.unitypackage
+crashlytics-build.properties
 
 # OS files
 .DS_Store
